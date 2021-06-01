@@ -145,7 +145,7 @@ describe('Checking application main endpoints', () => {
 
     const response = await request.put('/products/' + _id).send(image);
 
-    console.log(response.body);
+    // console.log(response.body);
 
     expect(response.body.imageUrl).toBeDefined();
     expect(typeof response.body.imageUrl).toBe('string');
