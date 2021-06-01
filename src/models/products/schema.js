@@ -1,15 +1,19 @@
-import mongoose from "mongoose"
-const { Schema } = mongoose
+import mongoose from 'mongoose';
+const { Schema } = mongoose;
 
-const ProductsSchema = new Schema({
+const ProductsSchema = new Schema(
+  {
     description: {
-        type: String,
-        required: true
+      type: String,
+      required: true,
     },
     price: {
-        type: Number,
-        required: true
-    }
-}, { timestamps: true })
+      type: Number,
+      required: true,
+    },
+    imageUrl: String,
+  },
+  { timestamps: true }
+);
 
-export default ProductsSchema
+export default ProductsSchema;

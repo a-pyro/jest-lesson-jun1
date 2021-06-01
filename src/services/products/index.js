@@ -24,6 +24,16 @@ productsRouter.delete('/:id', async (req, res) => {
   res.status(204).send();
 });
 
+productsRouter.put('/:id', async (req, res) => {
+  const product = await ProductModel.findByIdAndUpdate(
+    req.params.id,
+    { ...req.body },
+    { runValidators: true, new: true }
+  );
+  if (!product) return res.status(404).send({ message: 'resource not found' });
+  res.status(200).send(product);
+});
+
 productsRouter.post('/', async (req, res) => {
   try {
     const { description, price } = req.body;

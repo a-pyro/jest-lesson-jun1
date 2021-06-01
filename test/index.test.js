@@ -106,11 +106,15 @@ describe('Checking application main endpoints', () => {
   });
 
   it('should test that status code is correct for not found products', async () => {
-    const params = '111111111111111111111111';
+    const product = await ProductModel.create({
+      description: 'blabla',
+      price: 10,
+    });
+    const { _id } = product;
 
-    const response = await request.get('/products/' + params);
+    const response = await request.get('/products/' + _id);
 
-    const prod = await ProductModel.findById(params);
+    const prod = await ProductModel.findById(_id);
     if (!prod) {
       expect(response.status).toBe(404);
     } else {
@@ -128,5 +132,22 @@ describe('Checking application main endpoints', () => {
     const response = await request.delete('/products/' + _id);
 
     expect(response.status).toBe(204);
+  });
+
+  it('should test the put endpoint', async () => {
+    const product = await ProductModel.create({
+      description: 'blabla',
+      price: 10,
+    });
+
+    const { _id } = product;
+    const image = { imageUrl: 'https://blablabla.com' };
+
+    const response = await request.put('/products/' + _id).send(image);
+
+    console.log(response.body);
+
+    expect(response.body.imageUrl).toBeDefined();
+    expect(typeof response.body.imageUrl).toBe('string');
   });
 });
