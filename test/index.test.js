@@ -104,4 +104,17 @@ describe('Checking application main endpoints', () => {
 
     expect(included).toBe(true);
   });
+
+  it('should test that status code is correct for not found products', async () => {
+    const params = '111111111111111111111111';
+
+    const response = await request.get('/products/' + params);
+
+    const prod = await ProductModel.findById(params);
+    if (!prod) {
+      expect(response.status).toBe(404);
+    } else {
+      expect(response.status).toBe(200);
+    }
+  });
 });
