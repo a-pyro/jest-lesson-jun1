@@ -30,7 +30,7 @@ productsRouter.put('/:id', async (req, res) => {
     { ...req.body },
     { runValidators: true, new: true }
   );
-  console.log(products);
+  console.log(product);
   if (!product) return res.status(404).send({ message: 'resource not found' });
   res.status(200).send(product);
 });
