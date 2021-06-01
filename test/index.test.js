@@ -117,4 +117,16 @@ describe('Checking application main endpoints', () => {
       expect(response.status).toBe(200);
     }
   });
+
+  it('should test that the delete endpoint is returning the correct status code', async () => {
+    const product = await ProductModel.create({
+      description: 'blabla',
+      price: 10,
+    });
+    const { _id } = product;
+
+    const response = await request.delete('/products/' + _id);
+
+    expect(response.status).toBe(204);
+  });
 });
